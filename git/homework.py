@@ -5,7 +5,7 @@ This is a list of functions that should be completed.
 from typing import Any
 from typing import List
 import string
-import random
+
 
 
 class OurAwesomeException(Exception):
@@ -17,8 +17,8 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     If @first and @second has same value should return True
     In another case should return False
     """
-    return first == second
-
+    
+     return first == second
 
 
 
@@ -39,7 +39,7 @@ def is_two_objects_is_the_same_objects(first: Any, second: Any) -> bool:
     If @first and @second has same type should return True
     In another case should return False
     """
-    return first is second
+    return id(first) == id(second)
 
 
 
@@ -98,11 +98,10 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     """
 
     try:
-        int(first_value)
-        int(second_value)
+        return int(first_value) * int(second_value)
     except ValueError:
         print("Not valid input data")
-    return int(first_value) * int(second_value)
+    
 
 
 
@@ -175,7 +174,7 @@ def alphabet() -> dict:
     a = string.ascii_lowercase
     d = {}
     for i in range(26):
-        d.update({a[i]: i + 1})
+        d.update({i + 1: a[i]})
     return d
 
 

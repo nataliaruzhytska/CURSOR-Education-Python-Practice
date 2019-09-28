@@ -7,7 +7,6 @@ from typing import List
 import string
 
 
-
 class OurAwesomeException(Exception):
     pass
 
@@ -17,7 +16,6 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     If @first and @second has same value should return True
     In another case should return False
     """
-    
     return first == second
 
 
@@ -51,7 +49,6 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-
     if int == type(second_value) == type(first_value):
         return first_value * second_value
     else:
@@ -86,7 +83,6 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
         >>> "Not valid input data"
 
     """
-
     try:
         return int(first_value) * int(second_value)
     except ValueError:
@@ -135,7 +131,7 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
     """
     data1 = []
     for i in data:
-        if i > 0:
+        if i >= 0:
             data1.append(i)
     return data1
 
@@ -149,7 +145,7 @@ def alphabet() -> dict:
     >>> {"a": 1, "b": 2 ...}
     """
 
-    return dict(zip(range(1,27), string.ascii_lowercase))
+    return dict(zip(range(1, 27), string.ascii_lowercase))
 
 
 def simple_sort(data: List[int]) -> List[list]:

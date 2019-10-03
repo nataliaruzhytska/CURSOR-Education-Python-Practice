@@ -7,7 +7,7 @@ ST = Dict[str, Union[str, int]]
 DT = List[ST]
 
 
-def task_1_fix_names_start_letter(data: DT) -> str:
+def task_1_fix_names_start_letter(data: DT) -> DT:
     """
     Make all `names` field in list of students to start from upper letter
 
@@ -29,7 +29,7 @@ def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
     return [{k: v for (k, v) in d.items() if k not in redundant_keys} for d in data]
 
 
-def task_3_find_item_via_value(data: DT, value) -> List[Dict[str, Union[str, int]]]:
+def task_3_find_item_via_value(data: DT, value) -> DT:
     """
     Find and return all items that has @searching value in any key
     Examples:
@@ -56,7 +56,7 @@ def task_5_min_value_strings(data: List[Union[str, int]]) -> str:
         return min(data, key=len)
 
 
-def task_6_min_value_list_of_dicts(data: DT, key: str) -> str:
+def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
     """
     Find minimum value by given key
     Returns:

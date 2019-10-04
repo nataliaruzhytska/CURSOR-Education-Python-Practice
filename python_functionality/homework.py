@@ -50,10 +50,7 @@ def task_5_min_value_strings(data: List[Union[str, int]]) -> str:
     """
     Find the longest string
     """
-    if data:
-        for i in range(len(data)):
-            data[i] = str(data[i])
-        return min(data, key=len)
+    return min([str(d) for d in data], key=len, default=None)
 
 
 def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:

@@ -4,15 +4,11 @@ import unittest
 from homework import Rectangle
 
 
-class RectangleTests(unittest.TestCase):
+class RectangleValidValues(unittest.TestCase):
 
     def setUp(self):
         self.rect1 = Rectangle(3, 5)
         self.rect2 = Rectangle(3, 3)
-
-    def tearDown(self):
-        del self.rect1
-        del self.rect2
 
     def test_get_rectangle_perimeter(self):
         self.assertEqual(self.rect1.get_rectangle_perimeter(), 16)
@@ -45,24 +41,18 @@ class RectangleInvalidValues(unittest.TestCase):
         self.rect4 = Rectangle(-5, 7)
         self.rect5 = Rectangle(2, 7)
 
-    def tearDown(self):
-        del self.rect3
-        del self.rect4
-
     @unittest.expectedFailure
-    def test_get_rectangle_square_invalid_values(self):
+    def test_get_rectangle_square_expected_failures(self):
         with self.assertRaises(ValueError):
             self.assertTrue(self.rect3.get_rectangle_square() >= 0)
             self.assertTrue(self.rect4.get_rectangle_square() >= 0)
 
-    def test_get_sum_of_corners_raises(self):
+    def test_test_rectangle_func_raises(self):
+        with self.assertRaises(ValueError):
+            self.rect5.get_radius_of_inscribed_circle()
         for num in range(5, 10):
             with self.assertRaises(ValueError):
                 self.rect5.get_sum_of_corners(num)
-
-    def test_get_radius_of_inscribed_circle_raises(self):
-        with self.assertRaises(ValueError):
-            self.rect5.get_radius_of_inscribed_circle()
 
 
 if __name__ == "__main__":

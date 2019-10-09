@@ -49,9 +49,16 @@ class RectangleInvalidValues(unittest.TestCase):
                 self.rect4.get_rectangle_square()
                 self.rect3.get_rectangle_perimeter()
                 self.rect4.get_rectangle_perimeter()
-                for num in range(5, 10):
+
+    def test_incorrect_num_corners_raises(self):
+        for num in range(5, 10):
+            with self.subTest():
+                with self.assertRaises(ValueError):
                     self.rect5.get_sum_of_corners(num)
-                    self.rect5.get_radius_of_inscribed_circle()
+
+    def test_incorrect_parameters_raises(self):
+        with self.assertRaises(ValueError):
+            self.rect5.get_radius_of_inscribed_circle()
 
 
 if __name__ == "__main__":

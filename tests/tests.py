@@ -19,8 +19,9 @@ class RectangleValidValues(unittest.TestCase):
         self.assertEqual(self.rect2.get_rectangle_square(), 9)
 
     def test_get_sum_of_corners(self):
-        for num in range(1, 5):
-            self.assertEqual(self.rect1.get_sum_of_corners(num), num * 90)
+        with self.subTest():
+            for num in range(1, 5):
+                self.assertEqual(self.rect1.get_sum_of_corners(num), num * 90)
 
     def test_get_rectangle_diagonal(self):
         self.assertEqual(self.rect1.get_rectangle_diagonal(), math.sqrt(34))
@@ -41,18 +42,16 @@ class RectangleInvalidValues(unittest.TestCase):
         self.rect4 = Rectangle(-5, 7)
         self.rect5 = Rectangle(2, 7)
 
-    @unittest.expectedFailure
-    def test_get_rectangle_square_expected_failures(self):
-        with self.assertRaises(ValueError):
-            self.assertTrue(self.rect3.get_rectangle_square() >= 0)
-            self.assertTrue(self.rect4.get_rectangle_square() >= 0)
-
-    def test_test_rectangle_func_raises(self):
-        with self.assertRaises(ValueError):
-            self.rect5.get_radius_of_inscribed_circle()
-        for num in range(5, 10):
+    def test_incorrect_parameter_raises(self):
+        with self.subTest():
             with self.assertRaises(ValueError):
-                self.rect5.get_sum_of_corners(num)
+                self.rect3.get_rectangle_square()
+                self.rect4.get_rectangle_square()
+                self.rect3.get_rectangle_perimeter()
+                self.rect4.get_rectangle_perimeter()
+                for num in range(5, 10):
+                    self.rect5.get_sum_of_corners(num)
+                    self.rect5.get_radius_of_inscribed_circle()
 
 
 if __name__ == "__main__":

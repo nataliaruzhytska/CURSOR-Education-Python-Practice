@@ -11,6 +11,8 @@ class Rectangle:
         Returns rectangle perimeter
         :return: number
         """
+        if self.width < 0 or self.height < 0:
+            raise ValueError("incorrect Rectangle parameter")
         perimeter = (self.width + self.height) * 2
         return perimeter
 
@@ -19,8 +21,11 @@ class Rectangle:
         Returns rectangle square
         :return: number
         """
+        if self.width < 0 or self.height < 0:
+            raise ValueError("incorrect Rectangle parameter")
         square = self.width * self.height
         return square
+
 
     def get_sum_of_corners(self, number_of_corners):
         """
@@ -68,7 +73,7 @@ class Rectangle:
         :return:
         """
         if self.width != self.height:
-            assert ValueError("Can't inscribed circle in rectangle with such width and height")
+            raise ValueError("Can't inscribed circle in rectangle with such width and height")
         diagonal = self.get_rectangle_diagonal()
-        radius = diagonal / 2 * math.sqrt(2)
+        radius = diagonal / (2 * math.sqrt(2))
         return radius

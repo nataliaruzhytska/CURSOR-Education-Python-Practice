@@ -13,7 +13,6 @@ class Cat:
             self._increase_saturation_level(5)
         if product == "milk":
             self._increase_saturation_level(2)
-        return self.saturation_level
 
     def _reduce_saturation_level(self, value):
         self.saturation_level -= value
@@ -67,7 +66,6 @@ class Cheetah(Cat):
             self._increase_saturation_level(30)
         if product == "rabbit":
             self._increase_saturation_level(15)
-        return self.saturation_level
 
     def _set_average_speed(self):
         if self.age in range(0, 6):

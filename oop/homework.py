@@ -5,14 +5,16 @@ class Cat:
         self.average_speed = self._set_average_speed()
         self.saturation_level = 50
 
+    products = {
+        "fodder": 10,
+        "apple": 5,
+        "milk": 2
+    }
+
     def eat(self, product):
         product = product.lower()
-        if product == "fodder":
-            self._increase_saturation_level(10)
-        if product == "apple":
-            self._increase_saturation_level(5)
-        if product == "milk":
-            self._increase_saturation_level(2)
+        if product in self.products.keys():
+            self._increase_saturation_level(self.products.get(product))
 
     def _reduce_saturation_level(self, value):
         self.saturation_level -= value
@@ -60,12 +62,10 @@ class Cat:
 
 
 class Cheetah(Cat):
-
-    def eat(self, product):
-        if product == "gazelle":
-            self._increase_saturation_level(30)
-        if product == "rabbit":
-            self._increase_saturation_level(15)
+    products = {
+        "gazelle": 30,
+        "rabbit": 15,
+    }
 
     def _set_average_speed(self):
         if self.age in range(0, 6):
@@ -88,11 +88,12 @@ class Wall:
         return self.width * self.height
 
     def number_of_rolls_of_wallpaper(self, roll_width_m, roll_length_m):
-        if roll_width_m <= 0 or roll_length_m <= 0:
+        if roll_width_m > 0 and roll_length_m > 0:
+            count_of_lines = self.width / roll_width_m
+            lines_in_roll = roll_length_m / self.height
+            return count_of_lines / lines_in_roll
+        else:
             raise ValueError("Value must be > 0")
-        count_of_lines = self.width / roll_width_m
-        lines_in_roll = roll_length_m / self.height
-        return count_of_lines / lines_in_roll
 
 
 class Roof:
@@ -105,7 +106,7 @@ class Roof:
     def roof_square(self):
         if self.roof_type == "gable":
             return self.width * self.height * 2
-        if self.roof_type == "single-pitch":
+        elif self.roof_type == "single-pitch":
             return self.width * self.height
         else:
             raise ValueError("Sorry there is only two types of roofs")
@@ -135,7 +136,7 @@ class Door:
     def door_price(self, material):
         if material == 'wood':
             return self.door_square() * self.wood_price
-        if material == 'metal':
+        elif material == 'metal':
             return self.door_square() * self.metal_price
         else:
             raise ValueError("Sorry we don't have such material")
@@ -157,32 +158,36 @@ class House:
 
     def create_wall(self, width, height):
 
-        if height <= 0 or width <= 0:
+        if width > 0 and height > 0:
+            if len(self.__walls) == 4:
+                raise ValueError("Our house can not have more than 4 walls")
+            self.__walls.append(Wall(width, height))
+        else:
             raise ValueError("Value must be > 0")
-        if len(self.__walls) == 4:
-            raise ValueError("Our house can not have more than 4 walls")
-        self.__walls.append(Wall(width, height))
 
     def create_roof(self, width, height, roof_type):
 
         if self.__roof:
             raise ValueError("The house can not have two roofs")
-        if width <= 0 or height <= 0:
+        if width > 0 and height > 0:
+            self.__roof = Roof(width, height, roof_type)
+        else:
             raise ValueError("Value must be > 0")
-        self.__roof = Roof(width, height, roof_type)
 
     def create_window(self, width, height):
-        if width <= 0 or height <= 0:
+        if width > 0 and height > 0:
+            self.__windows.append(Window(width, height))
+        else:
             raise ValueError("Value must be > 0")
-        self.__windows.append(Window(width, height))
 
     def create_door(self, width, height):
 
         if self.__door:
             raise ValueError("The house can not have two doors")
-        if width <= 0 or height <= 0:
+        if width > 0 and height > 0:
+            self.__door = Door(width, height)
+        else:
             raise ValueError("Value must be > 0")
-        self.__door = Door(width, height)
 
     def get_count_of_walls(self):
         return len(self.__walls)

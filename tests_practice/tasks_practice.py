@@ -4,7 +4,7 @@ import math
 from typing import List
 
 
-def task_1(a: List, b: List):
+def task_1_get_common_elements(a: List, b: List):
     """
     write a program that returns a list
     that contains only the elements
@@ -13,7 +13,7 @@ def task_1(a: List, b: List):
     return set(a + b)
 
 
-def task_2(text: str):
+def task_2_number_a_in_string(text: str):
     """
     Return the number of times that the letter “a”
     appears anywhere in the given string
@@ -21,7 +21,7 @@ def task_2(text: str):
     return text.lower().count('a')
 
 
-def task_3(num: int):
+def task_3_is_integer_power_of_three(num: int):
     """
     Write a Python program to check
     if a given positive integer is a power of three
@@ -30,7 +30,7 @@ def task_3(num: int):
     return int(x) == x
 
 
-def task_4(num):
+def task_4_add_digits_of_integer(num):
     """
     Write a Python program to add the digits
     of a positive integer repeatedly
@@ -43,7 +43,7 @@ def task_4(num):
         num = digits_count
 
 
-def task_5(ls: List):
+def task_5_move_zeros(ls: List):
     """
     Write a Python program to push all zeros to the end of a list.
     """
@@ -53,7 +53,7 @@ def task_5(ls: List):
     return ls
 
 
-def task_6(seq: List):
+def task_6_sequence_is_progression(seq: List):
     """
     Write a Python program to check a sequence of numbers
     is an arithmetic progression or not.
@@ -67,7 +67,7 @@ def task_6(seq: List):
         return list(range(start, stop + 1, step)) == seq
 
 
-def task_7(ls: List):
+def task_7_find_non_duplicate_number(ls: List):
     """
     Write a Python program to find the number
     in a list that doesn't occur twice.
@@ -77,7 +77,7 @@ def task_7(ls: List):
             return ls[i]
 
 
-def task_8(ls: List):
+def task_8_find_missing_number(ls: List):
     """
     Write a Python program to find a missing number from a list.
     """
@@ -86,7 +86,7 @@ def task_8(ls: List):
             return i + 1
 
 
-def task_9(ls: List):
+def task_9_get_count_elements(ls: List):
     """
     Write a Python program to count the elements
     in a list until an element is a tuple.
@@ -99,7 +99,7 @@ def task_9(ls: List):
             return count_ls
 
 
-def task_10(text: str):
+def task_10_get_reverse_string(text: str):
     """
     Write a program that will take the str parameter
     being passed and return the string in reversed order.
@@ -109,7 +109,7 @@ def task_10(text: str):
     return text[::-1]
 
 
-def task_11(num: int):
+def task_11_get_hours_and_minutes(num: int):
     """
     Write a program that will take the num parameter being passed
     and return the number of hours and minutes the parameter
@@ -119,7 +119,7 @@ def task_11(num: int):
     return str(num // 60) + " : " + str(num % 60)
 
 
-def task_12(text: str):
+def task_12_get_largest_word(text: str):
     """
     Write a program that will take the parameter
     being passed and return the largest word in the string.
@@ -130,7 +130,7 @@ def task_12(text: str):
     return max(text.split())
 
 
-def task_13(text: str):
+def task_13_get_words_in_backwards_order(text: str):
     """
     Write a program (using functions!) that asks the user
     for a long string containing multiple words.
@@ -141,10 +141,10 @@ def task_13(text: str):
     return str(' '.join(text.split()[::-1]))
 
 
-def task_14(num: int):
+def task_14_fibonacci_sequence(num: int):
     """
     Write a program that asks the user
-    how many Fibonnaci numbers to generate and then generates them.
+    how many Fibonacci numbers to generate and then generates them.
     Take this opportunity to think about how you can use functions.
     Make sure to ask the user to enter the number
     of numbers in the sequence to generate.
@@ -160,7 +160,7 @@ def task_14(num: int):
     return list(fib(num_fib))
 
 
-def task_15(a: List[int]):
+def task_15_get_even_elements(a: List[int]):
     """
     Let’s say I give you a list saved in a variable:
     a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100].
@@ -170,7 +170,7 @@ def task_15(a: List[int]):
     return [i for i in a if i % 2 == 0]
 
 
-def task_16(num: int):
+def task_16_get_sum_of_numbers(num: int):
     """
     Write a program that will add up all the numbers
     from 1 to input number. For example: if the input is 4
@@ -180,7 +180,7 @@ def task_16(num: int):
     return sum([i for i in range(num + 1)])
 
 
-def task_17(num: int):
+def task_17_get_factorial(num: int):
     """
     Write a program that will take the parameter
     being passed and return the factorial of it.
@@ -198,7 +198,7 @@ def task_17(num: int):
     return factorial(num)
 
 
-def task_18(word: str):
+def task_18_replace_letter_in_string(word: str):
     """
     Write a program that will take the str parameter being passed
     and modify it using the following algorithm.
@@ -212,7 +212,7 @@ def task_18(word: str):
                     else chr(ord(i) + 1).replace('{', 'A') for i in word])
 
 
-def task_19(word: str):
+def task_19_get_sorted_word(word: str):
     """
     Write a program that will take the str string parameter
     being passed and return the string with the letters
@@ -222,7 +222,7 @@ def task_19(word: str):
     return ''.join(sorted(word))
 
 
-def task_20(a, b: int):
+def task_20_number_compare(a, b: int):
     """
     Write a program that will take both parameters being passed
     and return the true if num2 is greater than num1,

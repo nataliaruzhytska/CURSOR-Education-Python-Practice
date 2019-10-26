@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Fruits</h1>
+
+<ul>
+    {% for value in list %}
+        {% if value == "strawberry" %}
+           <li><p><span style="color: red">{{ value }}</span></p></li>
+        {% else %}
+            <li><p><span style="color: black">{{ value }}</span></p></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Homework Flask Lesson</title>
+
+</head>
+
+<body>
+
+<header>
+    <h1></h1>
+  </header>
+
+<!--Navbar-->
+<nav class="bg-dark navbar navbar-expand-lg navbar-dark primary-color">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="/">Home</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/Alarm_clock">Alarm clock</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Headphones">Headphones</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="/iPod">iPod</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="/Calculator">Calculator</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="/Coffeemaker">Coffeemaker</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="/Battery_charger">Battery charger</a>
+      </li>
+    </ul>
+    <!-- Links -->
+
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+
+{% block content %}
+{% endblock %}
+
+
+<!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3"><p>Homework Flask Intro (II)</p>© 2019 Copyright:
+    <a href="/author_page"> Nataliia Ruzhytska</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>
+</html>

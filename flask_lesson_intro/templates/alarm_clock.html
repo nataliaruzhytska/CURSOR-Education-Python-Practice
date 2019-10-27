@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+      <div class="col-md-8 mt-md-0 mt-3">
+
+<p>
+    <img src="{{ url_for('static', filename='alarm_clock.jpg') }}" alt="Alarm_clock"
+         style="float:left;width:600px;height:600px;">
+</p>
+    <p>
+        {% for i in data %}
+            {% if i['title'] == "Alarm clock" %}
+                <p><h1>{{i['title']}}</h1></p>
+                <h4>{{i['text']}}</h4>
+                <p><h5>Count of words in this text: {{i['text'].split()|length}}</h5></p>
+            {% endif %}
+        {% endfor %}
+    </p>
+      </div>
+</div>
+{% endblock %}

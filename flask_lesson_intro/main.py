@@ -13,7 +13,12 @@ def get_home_page():
 def get_item_page(item):
     for i in get_data():
         if i['title'] == item:
-            return render_template("item.html", item=item, data=get_data())
+            return render_template("item.html",
+                                   title=i['title'],
+                                   image=i['img'],
+                                   text=i['text'],
+                                   count=len(i['text'].split()),
+                                   data=get_data())
     else:
         return render_template("404_page.html")
 

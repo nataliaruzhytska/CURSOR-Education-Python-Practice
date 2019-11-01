@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+            <div class="rightpic">
+                <div class="col-md-8 mt-md-0 mt-3">
+                    <p><h1 align="center">{{title}}</h1></p>
+                    <img src="{{ url_for('static', filename=image) }}" style="float:left;width:600px;height:600px;">
+                    <h4>{{text}}</h4>
+                    <p><h5>Count of words in this text: {{count}}</h5></p>
+                </div>
+            </div>
+
+{% endblock %}

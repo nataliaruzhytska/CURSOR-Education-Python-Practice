@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Homework Flask Lesson</title>
+    <style>
+   .rightpic {
+    float: right;
+     margin: 0;
+   }
+  </style>
+</head>
+
+<body>
+
+<header>
+    <h1></h1>
+  </header>
+
+<!--Navbar-->
+<nav class="bg-dark navbar navbar-expand-lg navbar-dark primary-color">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="{{ url_for('get_home_page')}}">Home</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('get_item_page', item='Alarm clock') }}">Alarm clock</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('get_item_page', item='Headphones') }}">Headphones</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('get_item_page', item='iPod') }}">iPod</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('get_item_page', item='Calculator') }}">Calculator</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('get_item_page', item='Coffeemaker') }}">Coffeemaker</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('get_item_page', item='Battery charger') }}">Battery charger</a>
+      </li>
+    </ul>
+    <!-- Links -->
+
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+
+{% block content %}
+{% endblock %}
+
+
+<!-- Footer -->
+<footer class="page-footer font-small blue fixed-bottom">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3"><p>Homework Flask Intro (II)</p>© 2019 Copyright:
+    <a href="/author_page"> Nataliia Ruzhytska</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>
+</html>

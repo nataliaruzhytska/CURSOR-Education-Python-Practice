@@ -11,7 +11,11 @@ def get_home_page():
 
 @app.route('/<item>')
 def get_item_page(item):
-    return render_template("item.html", item=item, data=get_data())
+    for i in get_data():
+        if i['title'] == item:
+            return render_template("item.html", item=item, data=get_data())
+    else:
+        return render_template("404_page.html")
 
 
 @app.route('/author_page')

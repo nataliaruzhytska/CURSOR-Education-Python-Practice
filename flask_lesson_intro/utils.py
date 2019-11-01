@@ -1,10 +1,9 @@
 import json
-import os
 
 
-def get_data(data_path="data.json"):
-    if os.path.isfile(data_path):
+def get_data():
+    try:
         with open("data.json") as file:
             return json.load(file)
-    else:
-        return {}
+    except(IOError, json.JSONDecodeError):
+        raise

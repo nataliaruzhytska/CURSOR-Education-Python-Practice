@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 align="center">Supermarkets List</h1>
+    <ul>
+     {% for i in data %}
+        {% if request.args.get('location') == i['location']%}
+            <li><h3><a href="{{url_for('supermarkets.get_supermarket', id = i['id'])}}">
+                {{ i['name'] | title}}</a></h3></li>
+        {% elif request.args.get('location') == None %}
+            {% if not session.get(i['id']) %}
+                <li><h3><a href="{{url_for('supermarkets.get_supermarket', id = i['id'])}}">
+                    {{ i['name'] | title}}</a></h3></li>
+            {% else %}
+                <li><h3><div><a href="{{url_for('supermarkets.get_supermarket', id = i['id'])}}"
+                                onclick="return false" style="color:grey;opacity:0.5">
+                                {{ i['name'] | title}}</a></div></h3></li>
+            {%endif%}
+        {%endif%}
+     {% endfor %}
+    </ul>
+
+    <form action="{{ url_for('supermarkets.add_supermarket') }}">
+        <p><input type="submit" value="Add New"/></p>
+    </form>
+
+    <form action="/all_supermarkets"><p>Enter location</p>
+        <input type="text" name="location"/>
+        <p><input type="submit" value="search"/> </p>
+    </form>
+{% endblock %}

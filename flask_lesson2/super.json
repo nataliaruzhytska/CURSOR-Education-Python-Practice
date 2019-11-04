@@ -1,0 +1,32 @@
+[
+  {
+    "id": "45f29916-a4bc-49f6-a54c-cf7907e675d1Silpo",
+    "name": "Silpo",
+    "location": "Kyiv",
+    "img_name": "Silpo.jpg"
+  },
+  {
+    "id": "679d5156-f8d1-42a4-bc0f-867c9f5e1d51Billa",
+    "name": "Billa",
+    "location": "Moscow",
+    "img_name": "billa.jpg"
+  },
+  {
+    "id": "679d5156-f8d1-42a4-bc0f-867c9f5e1d51Auchan",
+    "name": "Auchan",
+    "location": "Kharkiv",
+    "img_name": "auchan.jpg"
+  },
+  {
+    "id": "679d5156-f8d1-42a4-bc0f-867c9f5e1d51ATB",
+    "name": "ATB",
+    "location": "Odessa",
+    "img_name": "atb-market.jpg"
+  },
+  {
+    "id": "679d5156-f8d1-42a4-bc0f-867c9f5e1d51Novus",
+    "name": "Novus",
+    "location": "Kyiv",
+    "img_name": "novus.jpg"
+  }
+]

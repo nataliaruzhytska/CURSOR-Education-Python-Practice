@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p><h1 align="center">{{ name | title}}</h1></p>
+    <div class="leftpic">
+        <img src="{{ url_for('static', filename=image) }}" style="float:left;width:400px;height:300px;">
+        <p><h3 align="center">{{ price }} $</h3></p>
+        <form action="{{ url_for('products.add_product') }}">
+            <p><input type="submit" value="Add New"/></p>
+        </form>
+    </div>
+    <div class="row">
+        <p><h4>{{ desc }}</h4></p>
+    </div>
+
+{% endblock %}

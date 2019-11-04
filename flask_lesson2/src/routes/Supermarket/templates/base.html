@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="sticky-footer.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Homework Flask Lesson II</title>
+<style>
+   .rightpic {
+    float: right;
+     margin: 5%;
+   }
+   .leftpic {
+   float: left;
+    margin: 5%;
+   }
+   .right-sidebar {
+    width: 35%;
+    float: right;
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+    <h1></h1>
+  </header>
+
+<!--Navbar-->
+<nav class="bg-dark navbar navbar-expand-lg navbar-dark primary-color">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="/">Home</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/all_products">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/all_supermarkets">Supermarkets</a>
+      </li>
+    </ul>
+    <!-- Links -->
+
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+<div>
+
+{% block content %}
+
+{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small blue fixed-bottom">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3"><p><h5>Homework #9 Flask Lesson II</h5></p>© 2019 Copyright:
+
+    <a href="/">Nataliia Ruzhytska</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>
+</html>

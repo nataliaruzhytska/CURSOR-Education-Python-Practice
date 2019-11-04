@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="leftpic">
+    <a href="/all_products"><h1 align="center">Products</h1></a>
+    <img src="{{ url_for('static', filename='products.jpg') }}" alt="Products"
+         style="width:600px;height:450px;">
+</div>
+
+
+<div class="rightpic">
+
+    <a href="/all_supermarkets"><h1 align="center">Supermarkets</h1></a>
+    <img src="{{ url_for('static', filename='supermarket.jpg') }}" alt="Supermarkets"
+         style="width:600px;height:450px;">
+</div>
+
+
+{% endblock %}

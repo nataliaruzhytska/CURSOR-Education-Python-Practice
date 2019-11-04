@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="leftpic">
+    <p><h1 align="center">Add new supermarket</h1></p>
+    <div class="col-md-8 mt-md-0 mt-3">
+        <form method="POST" action="/save" enctype="multipart/form-data">
+            <ul>
+                <li><p><h3>Supermarket Name</h3>{{form.name(size=30)}}</p></li>
+                <li><p><h3>Supermarket Location </h3>{{form.location(cols="40", rows="3")}}</p></li>
+                <form method="POST" action="/upload" enctype="multipart/form-data">
+                <p><h4>Please, add image</h4>{{form.image()}}</p> </form>
+                        {{form.submit()}}
+                </ul>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

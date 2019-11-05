@@ -1,6 +1,6 @@
 from datetime import timedelta
-
 from flask import Flask, render_template
+
 from src.routes.Product.products import products
 from src.routes.Supermarket.supermarkets import supermarkets
 
@@ -11,10 +11,8 @@ app.config.update(dict(
     WTF_CSRF_SECRET_KEY="a csrf secret key"
 ))
 
-
 app.register_blueprint(products)
 app.register_blueprint(supermarkets)
-
 
 app.config['SESSION_TYPE'] = 'filesystem'
 app.permanent_session_lifetime = timedelta(seconds=10)

@@ -5,7 +5,7 @@
 <div class="leftpic">
     <p><h1 align="center">Add new product</h1></p>
     <div class="col-md-8 mt-md-0 mt-3">
-        <form method="POST" action="/submit" enctype="multipart/form-data">
+        <form method="POST" action="{{ url_for('products.save_product') }}" enctype="multipart/form-data">
             <ul>
                 <li><p><h3>Product Name</h3>{{form.name(size=30)}}</p></li>
                 <li><p><h3>Product Price</h3>{{form.price(size=20)}}</p></li>

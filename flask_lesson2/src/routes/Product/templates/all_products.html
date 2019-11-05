@@ -20,7 +20,7 @@
     <form action="{{ url_for('products.add_product') }}">
         <p><input type="submit" value="Add New"/></p>
     </form>
-    <form action="/all_products">
+    <form action="{{ url_for('products.get_some_products') }}">
         <p>Enter price value</p>
         <input type="text" name="price"/>
         <p><input type="submit" value="search"/> </p>

@@ -15,6 +15,7 @@ app.config.update(dict(
 app.register_blueprint(products)
 app.register_blueprint(supermarkets)
 
+
 app.config['SESSION_TYPE'] = 'filesystem'
 app.permanent_session_lifetime = timedelta(seconds=10)
 

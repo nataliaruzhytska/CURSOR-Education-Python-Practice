@@ -5,14 +5,14 @@
     <ul>
      {% for i in data %}
         {% if request.args.get('location') == i['location']%}
-            <li><h3><a href="{{url_for('supermarkets.get_supermarket', id = i['id'])}}">
+            <li><h3><a href="{{url_for('supermarkets.get_supermarket', s_id = i['id'])}}">
                 {{ i['name'] | title}}</a></h3></li>
         {% elif request.args.get('location') == None %}
             {% if not session.get(i['id']) %}
-                <li><h3><a href="{{url_for('supermarkets.get_supermarket', id = i['id'])}}">
+                <li><h3><a href="{{url_for('supermarkets.get_supermarket', s_id = i['id'])}}">
                     {{ i['name'] | title}}</a></h3></li>
             {% else %}
-                <li><h3><div><a href="{{url_for('supermarkets.get_supermarket', id = i['id'])}}"
+                <li><h3><div><a href="{{url_for('supermarkets.get_supermarket', s_id = i['id'])}}"
                                 onclick="return false" style="color:grey;opacity:0.5">
                                 {{ i['name'] | title}}</a></div></h3></li>
             {%endif%}

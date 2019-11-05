@@ -46,7 +46,7 @@ def add_product():
 def save_product():
     f = ProductForm()
 
-    d = {'id': format(f.id, request.form.get('name')),
+    d = {'id': f.id,
          'name': request.form.get('name'),
          'description': request.form.get('description'),
          'price': request.form.get('price'),

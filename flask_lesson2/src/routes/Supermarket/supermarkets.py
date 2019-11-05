@@ -46,7 +46,7 @@ def add_supermarket():
 def save_supermarket():
     form = SupermarketForm()
 
-    s = {'id': format(form.id, request.form.get('name')),
+    s = {'id': form.id,
          'name': request.form.get('name'),
          'location': str(request.form.get('location')).title(),
          'img_name': upload_file()}

@@ -10,6 +10,7 @@ staff_rooms = db.Table(
 
 class Room(db.Model):
     __tablename__ = 'room'
+
     room_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     number = db.Column(db.Integer)
     level = db.Column(db.String)
@@ -20,23 +21,23 @@ class Room(db.Model):
 
 class Tenant(db.Model):
     __tablename__ = 'tenant'
+
     tenant_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String)
     passport_id = db.Column(db.String)
     age = db.Column(db.Integer)
     sex = db.Column(db.String)
     city = db.Column(db.String)
-    street = db.Column(db.String)
-    house = db.Column(db.Integer)
+    address = db.Column(db.String)
     rooms = db.relationship('Room', backref='tenant')
 
 
 class Staff(db.Model):
     __tablename__ = 'staff'
+
     staff_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String)
     passport_id = db.Column(db.String)
     position = db.Column(db.String)
     salary = db.Column(db.Integer)
     rooms = db.relationship('Room', secondary=staff_rooms, backref=db.backref('staff'))
-

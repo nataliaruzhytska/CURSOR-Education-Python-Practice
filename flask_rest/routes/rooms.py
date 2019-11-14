@@ -41,6 +41,3 @@ class GetRooms(Resource):
         db.session.delete(room)
         db.session.commit()
         return "Successfully deleted the room"
-
-
-

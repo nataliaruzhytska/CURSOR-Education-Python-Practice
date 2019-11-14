@@ -1,8 +1,12 @@
-from flask import Blueprint
+import json
+
+from flask import Blueprint, request, jsonify, current_app
 from flask_restful import Resource, marshal_with
 
-from structures.parsers import pars_tenants, pars_tenants_address
-from structures.tenant import Tenants, all_tenants, tenants_fields
+from db import db
+from structures.marshal_structure import tenants_fields
+from structures.model import Tenant, Room
+from structures.parsers import pars_tenants
 
 
 tenants_bp = Blueprint('GetTenants', __name__)
@@ -12,36 +16,35 @@ class GetTenants(Resource):
 
     @marshal_with(tenants_fields)
     def get(self):
-        for tenant in all_tenants:
-            if pars_tenants.parse_args().get('passport_id') == tenant.passport_id:
-                return tenant
-        else:
-            return all_tenants
+        if pars_tenants.parse_args().get('tenant_id'):
+            data = Tenant.query.get(pars_tenants.parse_args().get('tenant_id'))
+            return data
+        return Tenant.query.all()
 
-    @marshal_with(tenants_fields)
     def post(self):
-        all_tenants.append(Tenants(pars_tenants.parse_args().get('name'),
-                                   pars_tenants.parse_args().get('passport_id'),
-                                   pars_tenants.parse_args().get('age'),
-                                   pars_tenants.parse_args().get('sex'),
-                                   {'street': pars_tenants_address.parse_args().get('street'),
-                                    'city': pars_tenants_address.parse_args().get('city'),
-                                    'state': pars_tenants_address.parse_args().get('state'),
-                                    'zip': pars_tenants_address.parse_args().get('zip')},
-                                   pars_tenants.parse_args().get('room_number')))
-        return all_tenants, 200
+        data = json.loads(request.data)
+        try:
+            room_id = data.pop('room_id')
+            room = Room.query.get(room_id)
+            data['rooms'] = room
+        except KeyError:
+            current_app.logger.info("Room was not added")
+        new_tenant = Tenant(**data)
+        db.session.add(new_tenant)
+        db.session.commit()
+        return "Successfully added a new tenant"
 
-    @marshal_with(tenants_fields)
     def put(self, tenant_id):
-        for tenant in all_tenants:
-            if tenant.passport_id == tenant_id:
-                tenant.room_number = pars_tenants.parse_args().get('room_number')
-                return tenant, 200
+        data = json.loads(request.data)
+        tenant = Tenant.query.get(tenant_id)
+        tenant.city = data.get("city")
+        tenant.street = data.get("street")
+        tenant.house = data.get("house")
+        db.session.commit()
+        return "Successfully updated the tenant"
 
-    @marshal_with(tenants_fields)
     def delete(self):
-        for tenant in all_tenants:
-            if pars_tenants.parse_args().get('passport_id') == tenant.passport_id:
-                all_tenants.remove(tenant)
-
-                return all_tenants, 200
+        tenant = Tenant.query.get(pars_tenants.parse_args().get('tenant_id'))
+        db.session.delete(tenant)
+        db.session.commit()
+        return "Successfully deleted the tenant"

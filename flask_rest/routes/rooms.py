@@ -1,8 +1,13 @@
-from flask import Blueprint
+import json
+
+from flask import request
 from flask_restful import Resource, marshal_with
 
+from db import db
+from structures.marshal_structure import room_fields
+from flask import Blueprint
+from structures.model import Room
 from structures.parsers import pars_room
-from structures.room import Rooms, all_rooms, room_fields
 
 rooms_bp = Blueprint('GetRooms', __name__)
 
@@ -11,34 +16,31 @@ class GetRooms(Resource):
 
     @marshal_with(room_fields)
     def get(self):
-        for room in all_rooms:
-            if pars_room.parse_args().get('number') == room.number:
-                return room
-        if pars_room.parse_args().get('status'):
-            f_rooms = [room for room in all_rooms if pars_room.parse_args().get('status') == room.status]
-            return f_rooms
-        else:
-            return all_rooms
+        if pars_room.parse_args().get('room_id'):
+            data = Room.query.get(pars_room.parse_args().get('room_id'))
+            return data
+        return Room.query.all()
 
-    @marshal_with(room_fields)
     def post(self):
-        all_rooms.append(Rooms(pars_room.parse_args().get('number'),
-                               pars_room.parse_args().get('level'),
-                               pars_room.parse_args().get('status'),
-                               pars_room.parse_args().get('price')))
-        return all_rooms, 200
+        data = json.loads(request.data)
+        new_room = Room(**data)
+        db.session.add(new_room)
+        db.session.commit()
+        return "Successfully added a new room"
 
-    @marshal_with(room_fields)
     def put(self, room_id):
-        for room in all_rooms:
-            if room.number == room_id:
-                room.status = pars_room.parse_args().get('status')
-                return room, 200
+        data = json.loads(request.data)
+        room = Room.query.get(room_id)
+        room.status = data.get("status")
+        room.tenant_id = data.get("tenant_id")
+        db.session.commit()
+        return "Successfully updated the room"
 
-    @marshal_with(room_fields)
     def delete(self):
-        for room in all_rooms:
-            if pars_room.parse_args().get('number') == room.number:
-                all_rooms.remove(room)
+        room = Room.query.get(pars_room.parse_args().get('room_id'))
+        db.session.delete(room)
+        db.session.commit()
+        return "Successfully deleted the room"
 
-                return all_rooms, 200
+
+

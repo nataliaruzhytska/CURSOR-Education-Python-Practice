@@ -1,4 +1,6 @@
-from flask import Blueprint
+import json
+
+from flask import Blueprint, request
 from flask_restful import Resource, marshal_with
 
 from structures.parsers import pars_tenants, pars_tenants_address
@@ -20,15 +22,9 @@ class GetTenants(Resource):
 
     @marshal_with(tenants_fields)
     def post(self):
-        all_tenants.append(Tenants(pars_tenants.parse_args().get('name'),
-                                   pars_tenants.parse_args().get('passport_id'),
-                                   pars_tenants.parse_args().get('age'),
-                                   pars_tenants.parse_args().get('sex'),
-                                   {'street': pars_tenants_address.parse_args().get('street'),
-                                    'city': pars_tenants_address.parse_args().get('city'),
-                                    'state': pars_tenants_address.parse_args().get('state'),
-                                    'zip': pars_tenants_address.parse_args().get('zip')},
-                                   pars_tenants.parse_args().get('room_number')))
+        data = json.loads(request.data)
+        new_tenant = Tenants(**data)
+        all_tenants.append(new_tenant)
         return all_tenants, 200
 
     @marshal_with(tenants_fields)
@@ -37,11 +33,12 @@ class GetTenants(Resource):
             if tenant.passport_id == tenant_id:
                 tenant.room_number = pars_tenants.parse_args().get('room_number')
                 return tenant, 200
+            else:
+                return "No information about the tenant with this passport id", 404
 
     @marshal_with(tenants_fields)
     def delete(self):
         for tenant in all_tenants:
             if pars_tenants.parse_args().get('passport_id') == tenant.passport_id:
                 all_tenants.remove(tenant)
-
                 return all_tenants, 200

@@ -1,4 +1,6 @@
-from flask import Blueprint
+import json
+
+from flask import Blueprint, request
 from flask_restful import Resource, marshal_with
 
 from structures.parsers import pars_room
@@ -22,10 +24,9 @@ class GetRooms(Resource):
 
     @marshal_with(room_fields)
     def post(self):
-        all_rooms.append(Rooms(pars_room.parse_args().get('number'),
-                               pars_room.parse_args().get('level'),
-                               pars_room.parse_args().get('status'),
-                               pars_room.parse_args().get('price')))
+        data = json.loads(request.data)
+        new_room = Rooms(**data)
+        all_rooms.append(new_room)
         return all_rooms, 200
 
     @marshal_with(room_fields)
@@ -34,11 +35,12 @@ class GetRooms(Resource):
             if room.number == room_id:
                 room.status = pars_room.parse_args().get('status')
                 return room, 200
+            else:
+                return "There is no room with this number", 404
 
     @marshal_with(room_fields)
     def delete(self):
         for room in all_rooms:
             if pars_room.parse_args().get('number') == room.number:
                 all_rooms.remove(room)
-
                 return all_rooms, 200

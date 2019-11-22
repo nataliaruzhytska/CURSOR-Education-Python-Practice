@@ -1,4 +1,6 @@
-from flask import Blueprint
+import json
+
+from flask import Blueprint, request
 from flask_restful import Resource, marshal_with
 
 from structures.parsers import pars_staff
@@ -23,10 +25,9 @@ class GetStaff(Resource):
 
     @marshal_with(staff_fields)
     def post(self):
-        all_staff.append(Staff(pars_staff.parse_args().get('name'),
-                               pars_staff.parse_args().get('passport_id'),
-                               pars_staff.parse_args().get('position'),
-                               pars_staff.parse_args().get('salary')))
+        data = json.loads(request.data)
+        new_staff = Staff(**data)
+        all_staff.append(new_staff)
         return all_staff, 200
 
     @marshal_with(staff_fields)
@@ -36,6 +37,8 @@ class GetStaff(Resource):
                 staff.position = pars_staff.parse_args().get('position')
                 staff.salary = pars_staff.parse_args().get('salary')
                 return staff, 200
+            else:
+                return "No information about the employee with this passport id", 404
 
     @marshal_with(staff_fields)
     def delete(self):

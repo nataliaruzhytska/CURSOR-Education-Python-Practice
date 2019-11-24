@@ -25,10 +25,9 @@ class TestConfig(Config):
 def run_config():
     env = os.environ.get("ENV")
     dict_config = {"TEST": TestConfig,
-                   "DEV": DevConfig
+                   "DEV": DevConfig,
+                   "": Config
                    }
     return dict_config.get(env)
-
-
 
 

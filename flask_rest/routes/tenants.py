@@ -32,19 +32,25 @@ class GetTenants(Resource):
         new_tenant = Tenant(**data)
         db.session.add(new_tenant)
         db.session.commit()
-        return "Successfully added a new tenant"
+        return "Successfully added a new tenant", 200
 
     def put(self, tenant_id):
         data = json.loads(request.data)
         tenant = Tenant.query.get(tenant_id)
-        tenant.city = data.get("city")
-        tenant.street = data.get("street")
-        tenant.house = data.get("house")
-        db.session.commit()
-        return "Successfully updated the tenant"
+        if tenant_id == tenant.tenant_id:
+            tenant.city = data.get("city")
+            tenant.address = data.get("address")
+            db.session.commit()
+            return "Successfully updated the tenant", 200
+        else:
+            return "There is no tenant with this ID", 404
 
-    def delete(self):
-        tenant = Tenant.query.get(pars_tenants.parse_args().get('tenant_id'))
-        db.session.delete(tenant)
-        db.session.commit()
-        return "Successfully deleted the tenant"
+    def delete(self, tenant_id):
+        tenant = Tenant.query.get(tenant_id)
+        if tenant_id == tenant.tenant_id:
+            db.session.delete(tenant)
+            db.session.commit()
+            return "Successfully deleted the tenant", 200
+        else:
+            return "There is no tenant with this ID", 404
+

@@ -26,18 +26,24 @@ class GetRooms(Resource):
         new_room = Room(**data)
         db.session.add(new_room)
         db.session.commit()
-        return "Successfully added a new room"
+        return "Successfully added a new room", 200
 
     def put(self, room_id):
         data = json.loads(request.data)
         room = Room.query.get(room_id)
-        room.status = data.get("status")
-        room.tenant_id = data.get("tenant_id")
-        db.session.commit()
-        return "Successfully updated the room"
+        if room_id == room.room_id:
+            room.status = data.get("status")
+            room.tenant_id = data.get("tenant_id")
+            db.session.commit()
+            return "Successfully updated the room", 200
+        else:
+            return "There is no room with this number", 404
 
-    def delete(self):
-        room = Room.query.get(pars_room.parse_args().get('room_id'))
-        db.session.delete(room)
-        db.session.commit()
-        return "Successfully deleted the room"
+    def delete(self, room_id):
+        room = Room.query.get(room_id)
+        if room_id == room.room_id:
+            db.session.delete(room)
+            db.session.commit()
+            return "Successfully deleted the room", 200
+        else:
+            return "There is no room with this number", 404

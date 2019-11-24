@@ -29,8 +29,7 @@ app.register_blueprint(tenants_bp)
 
 api.add_resource(CreateDB, "/create_db")
 api.add_resource(GetRooms, '/rooms', '/rooms/<int:room_id>')
-api.add_resource(GetStaff, '/staff', '/staff/<staff_id>')
-api.add_resource(GetTenants, '/tenants', '/tenants/<tenant_id>')
+api.add_resource(GetStaff, '/staff', '/staff/<int:staff_id>')
+api.add_resource(GetTenants, '/tenants', '/tenants/<int:tenant_id>')
 api.add_resource(StaffRoom, "/staff_room")
-
 

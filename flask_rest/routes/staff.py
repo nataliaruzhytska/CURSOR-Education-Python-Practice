@@ -25,21 +25,27 @@ class GetStaff(Resource):
         new_staff = Staff(**data)
         db.session.add(new_staff)
         db.session.commit()
-        return "Successfully added a new staff"
+        return "Successfully added a new staff", 200
 
     def put(self, staff_id):
         data = json.loads(request.data)
         staff = Staff.query.get(staff_id)
-        staff.position = data.get("position")
-        staff.salary = data.get("salary")
-        db.session.commit()
-        return "Successfully updated the staff"
+        if staff_id == staff.staff_id:
+            staff.position = data.get("position")
+            staff.salary = data.get("salary")
+            db.session.commit()
+            return "Successfully updated the staff", 200
+        else:
+            return "No information about the employee with this ID", 404
 
-    def delete(self):
-        staff = Staff.query.get(pars_staff.parse_args().get('staff_id'))
-        db.session.delete(staff)
-        db.session.commit()
-        return "Successfully deleted the staff"
+    def delete(self, staff_id):
+        staff = Staff.query.get(staff_id)
+        if staff_id == staff.staff_id:
+            db.session.delete(staff)
+            db.session.commit()
+            return "Successfully deleted the staff", 200
+        else:
+            return "No information about the employee with this ID", 404
 
 
 class StaffRoom(Resource):
@@ -51,7 +57,7 @@ class StaffRoom(Resource):
         room = Room.query.filter_by(number=room_number).first()
         staff.rooms.append(room)
         db.session.commit()
-        return f"Successfully added {room.number} to {staff.name}"
+        return f"Successfully added {room.number} to {staff.name}", 200
 
     @marshal_with(staff_fields)
     def get(self):

@@ -24,9 +24,11 @@ class TestConfig(Config):
 
 def run_config():
     env = os.environ.get("ENV")
-    if env == "TEST":
-        return TestConfig
-    elif env == "DEV":
-        return DevConfig
-    else:
-        return Config
+    dict_config = {"TEST": TestConfig,
+                   "DEV": DevConfig
+                   }
+    return dict_config.get(env)
+
+
+
+

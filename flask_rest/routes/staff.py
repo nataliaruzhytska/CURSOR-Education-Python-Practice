@@ -20,44 +20,59 @@ class GetStaff(Resource):
             return data
         return Staff.query.all()
 
+    @marshal_with(staff_fields)
     def post(self):
-        data = json.loads(request.data)
-        new_staff = Staff(**data)
-        db.session.add(new_staff)
-        db.session.commit()
-        return "Successfully added a new staff", 200
+        try:
+            data = json.loads(request.data)
+            new_staff = Staff(**data)
+            db.session.add(new_staff)
+            db.session.commit()
+            return new_staff, f"Successfully added a new staff {new_staff.name}"
+        except(ValueError, TypeError, KeyError):
+            return Staff.query.all(), "Error! New staff was not created"
 
+    @marshal_with(staff_fields)
     def put(self, staff_id):
         data = json.loads(request.data)
         staff = Staff.query.get(staff_id)
-        if staff_id == staff.staff_id:
-            staff.position = data.get("position")
-            staff.salary = data.get("salary")
-            db.session.commit()
-            return "Successfully updated the staff", 200
+        if staff:
+            try:
+                staff.position = data.get["position"]
+                staff.salary = data["salary"]
+                db.session.commit()
+                return staff, f"Successfully updated the staff {staff.name}"
+            except(ValueError, TypeError, KeyError):
+                return staff, "Error! The staff was not updated"
         else:
-            return "No information about the employee with this ID", 404
+            return Staff.query.all(), "No information about the employee with this ID"
 
+    @marshal_with(staff_fields)
     def delete(self, staff_id):
         staff = Staff.query.get(staff_id)
-        if staff_id == staff.staff_id:
-            db.session.delete(staff)
-            db.session.commit()
-            return "Successfully deleted the staff", 200
+        if staff:
+            try:
+                db.session.delete(staff)
+                db.session.commit()
+                return Staff.query.all(), f"Successfully deleted the staff {staff.name}"
+            except(ValueError, TypeError, KeyError):
+                return staff, "Error! The staff was not deleted"
         else:
-            return "No information about the employee with this ID", 404
+            return Staff.query.all(), "No information about the employee with this ID"
 
 
 class StaffRoom(Resource):
     def post(self):
-        data = json.loads(request.data)
-        staff_name = data.get('staff_name')
-        room_number = data.get('room_number')
-        staff = Staff.query.filter_by(name=staff_name).first()
-        room = Room.query.filter_by(number=room_number).first()
-        staff.rooms.append(room)
-        db.session.commit()
-        return f"Successfully added {room.number} to {staff.name}", 200
+        try:
+            data = json.loads(request.data)
+            staff_name = data.get('staff_name')
+            room_number = data.get('room_number')
+            staff = Staff.query.filter_by(name=staff_name).first()
+            room = Room.query.filter_by(number=room_number).first()
+            staff.rooms.append(room)
+            db.session.commit()
+            return f"Successfully added {room.number} to {staff.name}", 200
+        except(ValueError, TypeError, KeyError):
+            return "Error! The room was not added to staff"
 
     @marshal_with(staff_fields)
     def get(self):

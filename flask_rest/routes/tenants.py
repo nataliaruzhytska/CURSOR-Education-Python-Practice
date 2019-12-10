@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, current_app
 from flask_restful import Resource, marshal_with
 
 from db import db
@@ -21,6 +21,7 @@ class GetTenants(Resource):
             return data
         return Tenant.query.all()
 
+    @marshal_with(tenants_fields)
     def post(self):
         data = json.loads(request.data)
         try:
@@ -29,28 +30,38 @@ class GetTenants(Resource):
             data['rooms'] = room
         except KeyError:
             current_app.logger.info("Room was not added")
-        new_tenant = Tenant(**data)
-        db.session.add(new_tenant)
-        db.session.commit()
-        return "Successfully added a new tenant", 200
+            try:
+                new_tenant = Tenant(**data)
+                db.session.add(new_tenant)
+                db.session.commit()
+                return new_tenant, f"Successfully added a new tenant {new_tenant}"
+            except(ValueError, TypeError, KeyError):
+                return Tenant.query.all(), "Error! New tenant was not created"
 
+    @marshal_with(tenants_fields)
     def put(self, tenant_id):
         data = json.loads(request.data)
         tenant = Tenant.query.get(tenant_id)
-        if tenant_id == tenant.tenant_id:
-            tenant.city = data.get("city")
-            tenant.address = data.get("address")
-            db.session.commit()
-            return "Successfully updated the tenant", 200
+        if tenant:
+            try:
+                tenant.city = data["city"]
+                tenant.address = data["address"]
+                db.session.commit()
+                return tenant, f"Successfully updated the tenant {tenant.name}"
+            except(ValueError, TypeError, KeyError):
+                return tenant, f"Error! The tenant {tenant.name} was not updated"
         else:
-            return "There is no tenant with this ID", 404
+            return Tenant.query.all(), "There is no tenant with this ID"
 
+    @marshal_with(tenants_fields)
     def delete(self, tenant_id):
         tenant = Tenant.query.get(tenant_id)
-        if tenant_id == tenant.tenant_id:
-            db.session.delete(tenant)
-            db.session.commit()
-            return "Successfully deleted the tenant", 200
+        if tenant:
+            try:
+                db.session.delete(tenant)
+                db.session.commit()
+                return tenant, f"Successfully deleted the tenant {tenant.name}"
+            except(ValueError, TypeError, KeyError):
+                return tenant, f"Error! The tenant {tenant.name} was not deleted"
         else:
-            return "There is no tenant with this ID", 404
-
+            return Tenant.query.all(), "There is no tenant with this ID"

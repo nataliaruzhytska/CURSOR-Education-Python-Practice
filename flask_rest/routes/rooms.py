@@ -21,29 +21,41 @@ class GetRooms(Resource):
             return data
         return Room.query.all()
 
+    @marshal_with(room_fields)
     def post(self):
-        data = json.loads(request.data)
-        new_room = Room(**data)
-        db.session.add(new_room)
-        db.session.commit()
-        return "Successfully added a new room", 200
+        try:
+            data = json.loads(request.data)
+            new_room = Room(**data)
+            db.session.add(new_room)
+            db.session.commit()
+            return new_room, f"Successfully added a new room {new_room.number}"
+        except(ValueError, TypeError, KeyError):
+            return Room.query.all(), "Error! New room was not created"
 
+    @marshal_with(room_fields)
     def put(self, room_id):
         data = json.loads(request.data)
         room = Room.query.get(room_id)
-        if room_id == room.room_id:
-            room.status = data.get("status")
-            room.tenant_id = data.get("tenant_id")
-            db.session.commit()
-            return "Successfully updated the room", 200
+        if room:
+            try:
+                room.status = data["status"]
+                room.tenant_id = data["tenant_id"]
+                db.session.commit()
+                return room, "Successfully updated the room"
+            except(ValueError, TypeError, KeyError):
+                return room, "Error! The room was not updated"
         else:
-            return "There is no room with this number", 404
+            return Room.query.all(), "There is no room with this number"
 
+    @marshal_with(room_fields)
     def delete(self, room_id):
         room = Room.query.get(room_id)
-        if room_id == room.room_id:
-            db.session.delete(room)
-            db.session.commit()
-            return "Successfully deleted the room", 200
+        if room:
+            try:
+                db.session.delete(room)
+                db.session.commit()
+                return Room.query.all(), f"Successfully deleted the room {room.number}"
+            except(ValueError, TypeError, KeyError):
+                return room, "Error! The room was not deleted"
         else:
-            return "There is no room with this number", 404
+            return Room.query.all(), "There is no room with this number"

@@ -9,6 +9,7 @@ from flask import Blueprint
 from structures.model import Room
 from structures.parsers import pars_room
 
+
 rooms_bp = Blueprint('GetRooms', __name__)
 
 

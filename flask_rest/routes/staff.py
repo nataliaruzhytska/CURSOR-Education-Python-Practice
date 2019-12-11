@@ -79,3 +79,4 @@ class StaffRoom(Resource):
         args = staff_room_parser.parse_args(strict=True)
         room = Room.query.filter_by(number=args.get('number')).first()
         return room.staff
+      

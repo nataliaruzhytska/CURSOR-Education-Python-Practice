@@ -11,6 +11,7 @@ from routes.rooms import rooms_bp, GetRooms
 from routes.staff import staff_bp, GetStaff, StaffRoom
 from routes.tenants import tenants_bp, GetTenants
 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -20,7 +21,6 @@ db.init_app(app)
 migrate.init_app(app, db)
 
 app.permanent_session_lifetime = timedelta(minutes=20)
-
 
 app.register_blueprint(create_db)
 app.register_blueprint(rooms_bp)
@@ -32,4 +32,3 @@ api.add_resource(GetRooms, '/rooms', '/rooms/<int:room_id>')
 api.add_resource(GetStaff, '/staff', '/staff/<int:staff_id>')
 api.add_resource(GetTenants, '/tenants', '/tenants/<int:tenant_id>')
 api.add_resource(StaffRoom, "/staff_room")
-

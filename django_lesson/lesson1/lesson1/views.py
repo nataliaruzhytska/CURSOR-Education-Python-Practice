@@ -1,8 +1,8 @@
 import requests
+
 from django.http import HttpResponse
 from django.shortcuts import render
-
-POCKEMON_URL = 'https://pokeapi.co/api/v2/'
+from .settings import POCKEMON_URL
 
 
 def health_check(request):

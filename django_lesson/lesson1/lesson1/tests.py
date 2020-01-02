@@ -1,10 +1,9 @@
-from http import HTTPStatus
-
 import requests
+
+from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse
-
-POCKEMON_URL = 'https://pokeapi.co/api/v2/'
+from .settings import POCKEMON_URL
 
 
 class ViewTests(TestCase):
@@ -24,21 +23,27 @@ class ViewTests(TestCase):
 
 class DataTests(TestCase):
 
+    def test_pokemon_api_response(self):
+        response = requests.get(f'{POCKEMON_URL}/type/3')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
     def test_pokemon_data_returned(self):
         response = requests.get(f'{POCKEMON_URL}/type/3')
         data = response.json()['pokemon']
         name = [p['pokemon']['name'] for p in data]
-        self.assertIsNotNone(response)
         self.assertIsNotNone(data, name)
-        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_pokemon_data_not_valid(self):
         data = [{}]
-        data1 = 'data'
-        data2 = None
         with self.assertRaises(KeyError):
             name = [p['name'] for p in data]
+
+    def test_pokemon_data_not_valid_1(self):
+        data1 = 'data'
         with self.assertRaises(TypeError):
             name = [p['name'] for p in data1]
+
+    def test_pokemon_data_not_valid_2(self):
+        data2 = None
         with self.assertRaises(TypeError):
             name = [p['name'] for p in data2]
